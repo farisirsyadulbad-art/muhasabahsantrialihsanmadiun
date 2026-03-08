@@ -2,127 +2,297 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Muhasabah Amal Yaumi - Ramadhan 1447H</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
-            --primary: #2e7d32;
-            --secondary: #f1f8e9;
+            --ios-bg: #0f172a;
+            --ios-card: rgba(30, 41, 59, 0.7); 
+            --ios-blue: #0a84ff;
+            --ios-text: #ffffff;
+            --ios-label: #94a3b8;
+            --ios-border: rgba(255, 255, 255, 0.1);
         }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f5f5f5; margin: 0; padding: 20px; }
-        .container { max-width: 600px; margin: auto; background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        h2 { text-align: center; color: var(--primary); margin-bottom: 5px; }
-        p.subtitle { text-align: center; font-size: 0.9em; color: #666; margin-bottom: 20px; }
-        
-        .section { margin-bottom: 20px; padding: 15px; border: 1px solid #ddd; border-radius: 10px; }
-        .section-title { font-weight: bold; margin-bottom: 10px; color: var(--primary); border-bottom: 2px solid var(--secondary); display: block; }
-        
-        .grid-check { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .check-item { display: flex; align-items: center; background: var(--secondary); padding: 10px; border-radius: 8px; cursor: pointer; font-size: 0.9em; }
-        .check-item input { margin-right: 10px; transform: scale(1.2); }
-        
-        label { display: block; margin-top: 10px; font-weight: 500; font-size: 0.9em; }
-        input[type="text"], textarea, input[type="date"] { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; }
-        
-        button { width: 100%; padding: 15px; background: var(--primary); color: white; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 20px; }
-        button:hover { background: #1b5e20; }
-        button:disabled { background: #ccc; cursor: not-allowed; }
+
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
+            background: var(--ios-bg);
+            margin: 0; padding: 0;
+            color: var(--ios-text);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container { max-width: 450px; margin: auto; padding-bottom: 50px; }
+
+        /* Header Banner */
+        .header-banner {
+            width: 100%;
+            height: 240px;
+            background: linear-gradient(to bottom, rgba(15, 23, 42, 0.2), #0f172a), 
+                        url('IMG_7728.JPG');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 25px;
+            box-sizing: border-box;
+        }
+
+        .header-banner h1 { font-size: 34px; font-weight: 800; margin: 0; color: #ffffff; }
+        .header-banner p { color: #cbd5e1; margin: 5px 0 0 0; font-size: 15px; }
+
+        .ios-group-title {
+            font-size: 12px;
+            color: var(--ios-label);
+            text-transform: uppercase;
+            margin: 30px 0 10px 20px;
+            letter-spacing: 1.5px;
+            font-weight: 600;
+        }
+
+        .ios-list {
+            background: var(--ios-card);
+            border-radius: 18px;
+            margin: 0 16px;
+            overflow: hidden;
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid var(--ios-border);
+        }
+
+        /* Row Seimbang (Rata Kiri Kanan) */
+        .ios-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--ios-border);
+        }
+
+        .ios-row:last-child { border-bottom: none; }
+
+        .ios-row label { font-size: 17px; font-weight: 600; color: #ffffff; flex-shrink: 0; }
+
+        .input-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            flex-grow: 1;
+            gap: 12px;
+            position: relative;
+        }
+
+        input[type="text"], input[type="date"], textarea {
+            border: none;
+            outline: none;
+            font-size: 17px;
+            background: transparent;
+            text-align: right;
+            color: var(--ios-blue);
+            width: 100%;
+            font-family: inherit;
+        }
+
+        /* Ikon Kalender Biru */
+        .calendar-icon {
+            color: var(--ios-blue);
+            font-size: 22px;
+            pointer-events: none;
+        }
+
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            position: absolute;
+            width: 100%; height: 100%;
+            opacity: 0; cursor: pointer;
+        }
+
+        /* Sholat Row */
+        .sholat-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 20px;
+            border-bottom: 1px solid var(--ios-border);
+        }
+
+        .sholat-info { display: flex; flex-direction: column; gap: 2px; }
+        .sholat-name { font-size: 17px; font-weight: 700; color: #ffffff; }
+        .sholat-sub { font-size: 12px; color: var(--ios-label); }
+
+        .picker-group {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            padding: 4px;
+            display: flex;
+            min-width: 180px;
+        }
+
+        .picker-btn {
+            flex: 1;
+            padding: 8px 0;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 700;
+            color: #94a3b8;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .picker-btn.active {
+            background: var(--ios-blue);
+            color: #ffffff;
+        }
+
+        /* Khidmat Section (Textarea Rata Kiri) */
+        .ios-row-v {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--ios-border);
+        }
+        .ios-row-v:last-child { border-bottom: none; }
+        .ios-row-v label { display: block; font-size: 17px; font-weight: 600; color: #ffffff; margin-bottom: 10px; }
+        .ios-row-v textarea { text-align: left; width: 100%; color: #ffffff; resize: none; }
+
+        /* Tombol Simpan */
+        .btn-container { padding: 40px 16px; }
+        .ios-button {
+            width: 100%;
+            background: linear-gradient(180deg, #10b981 0%, #059669 100%);
+            color: white; border: none; padding: 20px;
+            border-radius: 18px; font-size: 18px; font-weight: 800;
+            cursor: pointer; box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
+        }
+
+        .footer { text-align: center; color: var(--ios-label); font-size: 13px; margin-top: 20px; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h2>Muhasabah Amal Yaumi</h2>
-    <p class="subtitle">Liburan Ramadhan 1447 H / 2026 M</p>
+    <div class="header-banner">
+        <h1>Muhasabah</h1>
+        <p>Ponpes Al Ihsan Madiun • 1447H</p>
+    </div>
 
     <form id="muhasabahForm">
-        <label>Tanggal Ramadhan:</label>
-        <input type="date" id="tanggal" required>
-        
-        <label>Nama Santri:</label>
-        <input type="text" id="nama" placeholder="Masukkan nama lengkap" required>
-
-        <div class="section">
-            <span class="section-title">Sholat Fardhu Berjamaah (di Masjid)</span>
-            <div class="grid-check">
-                <label class="check-item"><input type="checkbox" id="shubuh"> Shubuh</label>
-                <label class="check-item"><input type="checkbox" id="dhuhur"> Dhuhur</label>
-                <label class="check-item"><input type="checkbox" id="ashar"> Ashar</label>
-                <label class="check-item"><input type="checkbox" id="maghrib"> Maghrib</label>
-                <label class="check-item"><input type="checkbox" id="isya"> Isya'</label>
+        <div class="ios-group-title">Informasi Dasar</div>
+        <div class="ios-list">
+            <div class="ios-row">
+                <label>Tanggal</label>
+                <div class="input-wrapper">
+                    <input type="date" id="tanggal" required>
+                    <i class="fa-regular fa-calendar-days calendar-icon"></i>
+                </div>
+            </div>
+            <div class="ios-row">
+                <label>Nama</label>
+                <div class="input-wrapper">
+                    <input type="text" id="nama" placeholder="Ketik nama lengkap..." required>
+                </div>
             </div>
         </div>
 
-        <div class="section">
-            <span class="section-title">Ibadah Sunnah & Dzikir</span>
-            <div class="grid-check">
-                <label class="check-item"><input type="checkbox" id="sunnah"> Sunnah/Tarawih/Dhuha</label>
+        <div class="ios-group-title">Laporan Sholat Berjamaah</div>
+        <div class="ios-list" id="sholatList">
+            </div>
+
+        <div class="ios-group-title">Ibadah Ramadhan</div>
+        <div class="ios-list">
+            <div class="sholat-row">
+                <div class="sholat-info"><span class="sholat-name">Tarawih</span><span class="sholat-sub">Qiyamul Lail</span></div>
+                <div class="picker-group">
+                    <button type="button" class="picker-btn active" onclick="setVal('tarawih', 'Tidak', this)">Tidak</button>
+                    <button type="button" class="picker-btn" onclick="setVal('tarawih', 'Ya', this)">Ya</button>
+                    <input type="hidden" id="tarawih" value="Tidak">
+                </div>
+            </div>
+            <div class="sholat-row">
+                <div class="sholat-info"><span class="sholat-name">Sunnah</span><span class="sholat-sub">Rawatib / Dhuha</span></div>
+                <div class="picker-group">
+                    <button type="button" class="picker-btn active" onclick="setVal('sunnah', 'Tidak', this)">Tidak</button>
+                    <button type="button" class="picker-btn" onclick="setVal('sunnah', 'Ya', this)">Ya</button>
+                    <input type="hidden" id="sunnah" value="Tidak">
+                </div>
+            </div>
+            <div class="ios-row">
+                <label>Al-Qur'an</label>
+                <div class="input-wrapper">
+                    <input type="text" id="quran" placeholder="Contoh: Juz 30">
+                </div>
             </div>
         </div>
 
-        <div class="section">
-            <span class="section-title">Aktivitas Lainnya</span>
-            <label>Membantu Orang Tua (Jenis Pekerjaan):</label>
-            <textarea id="ortu" rows="2" placeholder="Contoh: Mencuci piring, menyapu..."></textarea>
-            
-            <label>Qiro'atul Qur'an (Capaian/Muroja'ah):</label>
-            <input type="text" id="quran" placeholder="Contoh: Juz 30 / Al-Baqarah 1-50">
+        <div class="ios-group-title">Khidmat & Bakti</div>
+        <div class="ios-list">
+            <div class="ios-row-v">
+                <label>Membantu Orang Tua</label>
+                <textarea id="ortu" rows="2" placeholder="Contoh: Menyapu halaman atau mencuci piring..."></textarea>
+            </div>
         </div>
 
-        <button type="button" id="btnSimpan" onclick="simpanData()">Simpan Laporan Hari Ini</button>
+        <div class="btn-container">
+            <button type="button" id="btnSimpan" class="ios-button" onclick="simpanData()">Simpan Laporan</button>
+        </div>
     </form>
+    <div class="footer">© 2026 Ponpes Al Ihsan Madiun</div>
 </div>
 
 <script>
+    const sholats = ['Shubuh', 'Dhuhur', 'Ashar', 'Maghrib', 'Isya'];
+    const listContainer = document.getElementById('sholatList');
+    
+    sholats.forEach(s => {
+        const id = s.toLowerCase().replace("'", "");
+        listContainer.innerHTML += `
+            <div class="sholat-row">
+                <div class="sholat-info"><span class="sholat-name">${s}</span><span class="sholat-sub">Status Berjamaah</span></div>
+                <div class="picker-group">
+                    <button type="button" class="picker-btn active" onclick="setVal('${id}', 'Tidak', this)">Tidak</button>
+                    <button type="button" class="picker-btn" onclick="setVal('${id}', 'Tepat', this)">Tepat</button>
+                    <button type="button" class="picker-btn" onclick="setVal('${id}', 'Masbuq', this)">Masbuq</button>
+                    <input type="hidden" id="${id}" value="Tidak">
+                </div>
+            </div>
+        `;
+    });
+
+    function setVal(id, val, el) {
+        document.getElementById(id).value = val;
+        const btns = el.parentElement.querySelectorAll('.picker-btn');
+        btns.forEach(b => b.classList.remove('active'));
+        el.classList.add('active');
+    }
+
     function simpanData() {
         const btn = document.getElementById('btnSimpan');
-        // Link Apps Script milikmu
         const scriptURL = 'https://script.google.com/macros/s/AKfycbyhy7kRjfWrC2tZXMOA10sitAQNL0WOXmnvH37NZGRhcY4DPt6WZANpeJ34a1k5_aqy4w/exec';
-        
-        const tanggal = document.getElementById('tanggal').value;
-        const nama = document.getElementById('nama').value;
+        const tgl = document.getElementById('tanggal').value;
+        const nm = document.getElementById('nama').value;
 
-        if(!tanggal || !nama) {
-            alert("Harap isi Tanggal dan Nama!");
-            return;
-        }
+        if(!tgl || !nm) { alert("Isi Nama & Tanggal!"); return; }
 
-        btn.disabled = true;
-        btn.innerHTML = "Sedang Mengirim...";
+        btn.disabled = true; btn.innerHTML = "Mengirim...";
 
         const data = {
-            tanggal: tanggal,
-            nama: nama,
-            shubuh: document.getElementById('shubuh').checked ? "V" : "-",
-            dhuhur: document.getElementById('dhuhur').checked ? "V" : "-",
-            ashar: document.getElementById('ashar').checked ? "V" : "-",
-            maghrib: document.getElementById('maghrib').checked ? "V" : "-",
-            isya: document.getElementById('isya').checked ? "V" : "-",
-            sunnah: document.getElementById('sunnah').checked ? "Ya" : "Tidak",
-            ortu: document.getElementById('ortu').value,
-            quran: document.getElementById('quran').value
+            tanggal: tgl, nama: nm,
+            shubuh: document.getElementById('shubuh').value,
+            dhuhur: document.getElementById('dhuhur').value,
+            ashar: document.getElementById('ashar').value,
+            maghrib: document.getElementById('maghrib').value,
+            isya: document.getElementById('isya').value,
+            tarawih: document.getElementById('tarawih').value,
+            sunnah: document.getElementById('sunnah').value,
+            quran: document.getElementById('quran').value,
+            ortu: document.getElementById('ortu').value
         };
 
-        fetch(scriptURL, { 
-            method: 'POST', 
-            body: JSON.stringify(data),
-            mode: 'no-cors'
-        })
-        .then(() => {
-            alert("Alhamdulillah! Laporan berhasil dikirim.");
-            document.getElementById('muhasabahForm').reset();
-            btn.disabled = false;
-            btn.innerHTML = "Simpan Laporan Hari Ini";
-        })
-        .catch(() => {
-            // Karena mode no-cors, terkadang masuk ke catch padahal data terkirim
-            alert("Laporan Selesai Diproses.");
-            document.getElementById('muhasabahForm').reset();
-            btn.disabled = false;
-            btn.innerHTML = "Simpan Laporan Hari Ini";
-        });
+        fetch(scriptURL, { method: 'POST', body: JSON.stringify(data), mode: 'no-cors' })
+        .then(() => { alert("Laporan Terkirim!"); location.reload(); })
+        .catch(() => { alert("Terjadi kesalahan."); location.reload(); });
     }
 </script>
-
 </body>
 </html>
